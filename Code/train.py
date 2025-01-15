@@ -19,7 +19,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # 数据加载
 def get_data_loaders():
-    # 假设有 LithologyDataset 数据集类
+    #  数据集类
     train_dataset = LithologyDataset(train=True)  # 获取训练数据集
     val_dataset = LithologyDataset(train=False)  # 获取验证数据集
 
@@ -43,13 +43,13 @@ def train(model, train_loader, optimizer, criterion, epoch):
             query_labels.to(DEVICE),
         )
 
-        # 前向传播
+         
         distances, probabilities = model(support_set, query_set, unlabeled_set)
 
-        # 计算损失
+        
         loss = model.calculate_loss(query_set, query_labels, distances)
 
-        # 反向传播和优化
+       
         optimizer.zero_grad()  # 清空梯度
         loss.backward()  # 反向传播计算梯度
         optimizer.step()  # 更新权重
